@@ -8,10 +8,10 @@ do.devicecheck=1
 do.initd=0
 do.modules=0
 do.cleanup=1
-device.name1=Bullhead
-device.name2=bullhead
-device.name3=Nexus 5x
-device.name4=nexus 5x
+device.name1=Ether
+device.name2=ether
+device.name3=Robin
+device.name4=robin
 device.name5=
 
 # shell variables
