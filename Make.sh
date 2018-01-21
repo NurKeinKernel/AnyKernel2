@@ -6,47 +6,27 @@ ENDCOLOR="\033[0m"
 
 cd && cd Unicornblood_N
 
-rm -rf AnyKernel2-HAMMERHEAD AnyKernel2-SHAMU AnyKernel2-BULLHEAD AnyKernel2-ANGLER
+rm -rf AnyKernel2-ETHER AnyKernel2-BULLHEAD
 
 repo sync
 
-echo -e $YELLOW"Lets build Hammerhead..."$ENDCOLOR
+echo -e $YELLOW"Lets build Ether..."$ENDCOLOR
 
-export PATH=$HOME/Unicornblood_N/prebuilt/arm-eabi-4.8/bin:$PATH
+export PATH=$HOME/Unicornblood_N/prebuilt/aarch64-linux-android-4.9/bin:$PATH
 
-export ARCH=arm && export CROSS_COMPILE=arm-eabi-
+export ARCH=arm64 && export CROSS_COMPILE=aarch64-linux-android-
 
-cd android_kernel_lge_hammerhead && make clean && make mrproper
+cd android_kernel_nextbit_msm8992 && make clean && make mrproper
 
-make ARCH=arm CROSS_COMPILE=$CROSS_COMPILE unicornblood_deconfig
+make ARCH=arm64 CROSS_COMPILE=$CROSS_COMPILE ether_defconfig
 
-make ARCH=arm CROSS_COMPILE=$CROSS_COMPILE -j16
-
-cd && cd Unicornblood_N
-
-cp -v android_kernel_lge_hammerhead/arch/arm/boot/zImage-dtb AnyKernel2-HAMMERHEAD/zImage-dtb
-cd AnyKernel2-HAMMERHEAD
-zip -r9 Unicornblood_N-HAMMERHEAD-$(date +%m%d%Y).zip * -x README Unicornblood_N-HAMMERHEAD-$(date +%m%d%Y).zip
+make ARCH=arm64 CROSS_COMPILE=$CROSS_COMPILE -j16
 
 cd && cd Unicornblood_N
 
-echo -e $YELLOW"Lets build Shamu..."$ENDCOLOR
-
-export PATH=$HOME/Unicornblood_N/prebuilt/arm-eabi-4.8/bin:$PATH
-
-export ARCH=arm && export CROSS_COMPILE=arm-eabi-
-
-cd android_kernel_moto_shamu && make clean && make mrproper
-
-make ARCH=arm CROSS_COMPILE=$CROSS_COMPILE shamu_defconfig
-
-make ARCH=arm CROSS_COMPILE=$CROSS_COMPILE -j16
-
-cd && cd Unicornblood_N
-
-mv android_kernel_moto_shamu/arch/arm/boot/zImage-dtb AnyKernel2-SHAMU
-cd AnyKernel2-SHAMU
-zip -r9 Unicornblood_N-SHAMU-$(date +%m%d%Y).zip * -x README Unicornblood_N-SHAMU-$(date +%m%d%Y).zip
+mv android_kernel_nextbit_msm8992/arch/arm64/boot/Image.gz-dtb AnyKernel2-ETHER
+cd AnyKernel2-ETHER
+zip -r9 Unicornblood_N-ETHER-$(date +%m%d%Y).zip * -x README Unicornblood_N-ETHER-$(date +%m%d%Y).zip
 
 cd && cd Unicornblood_N
 
@@ -67,26 +47,6 @@ cd && cd Unicornblood_N
 mv android_kernel_lge_bullhead/arch/arm64/boot/Image.gz-dtb AnyKernel2-BULLHEAD
 cd AnyKernel2-BULLHEAD
 zip -r9 Unicornblood_N-BULLHEAD-$(date +%m%d%Y).zip * -x README Unicornblood_N-BULLHEAD-$(date +%m%d%Y).zip
-
-cd && cd Unicornblood_N
-
-echo -e $YELLOW"Lets build Angler..."$ENDCOLOR
-
-export PATH=$HOME/Unicornblood_N/prebuilt/aarch64-linux-android-4.9/bin:$PATH
-
-export ARCH=arm64 && export CROSS_COMPILE=aarch64-linux-android-
-
-cd android_kernel_huawei_angler && make clean && make mrproper
-
-make ARCH=arm64 CROSS_COMPILE=$CROSS_COMPILE angler_defconfig
-
-make ARCH=arm64 CROSS_COMPILE=$CROSS_COMPILE -j16
-
-cd && cd Unicornblood_N
-
-mv android_kernel_huawei_angler/arch/arm64/boot/Image.gz-dtb AnyKernel2-ANGLER
-cd AnyKernel2-ANGLER
-zip -r9 Unicornblood_N-ANGLER-$(date +%m%d%Y).zip * -x README Unicornblood_N-ANGLER-$(date +%m%d%Y).zip
 
 cd && cd Unicornblood_N
 
